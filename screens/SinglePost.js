@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {  Card, Title, List } from 'react-native-paper';
 import { View, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 import moment from 'moment';
 import HTML from 'react-native-render-html';
 
-class SinglePost extends React.Component {
+class SinglePost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,11 +18,16 @@ class SinglePost extends React.Component {
     }
 
     async fetchPost() {
-        let post_id = this.props.navigation.getParam('post_id');
+        // let post_id = this.props.navigation.getParam('post_id');
+        let postId = this.props.route.params; // contoh output json: "post_id": 206
+
+        // notes: karena output nya json, maka harus diakses dengan metode object
+        // contoh: postId.post_id
         const response = await fetch(
-            `https://phebecelia.id/wp-json/wp/v2/posts?_embed&include=${post_id}`
+            `https://phebecelia.id/wp-json/wp/v2/posts?_embed&include=${postId.post_id}`
         );
         const post = await response.json();
+
         this.setState({
             post: post,
             isloading: false,
