@@ -1,24 +1,50 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { Card, Title } from 'react-native-paper';
 
-const GalleryScreen = ({navigation}) => {
+export default class Categories extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false, categories: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchCategorie();
+  }
+      
+  async fetchCategorie() {
+    this.setState({ loading: true });
+    const response = await fetch(`https://phebecelia.id/wp-json/wp/v2/categories`);
+    const categories = await response.json();
+    
+    this.setState({
+      categories: categories
+    });
+  }
+
+  render() {
     return (
-      <View style={styles.container}>
-        <Text>Blog Screen</Text>
-        <Button
-            title="Go to Account screen"
-            onPress={() => navigation.navigate("Account")}
+      <ScrollView>
+        <FlatList data={this.state.categories} renderItem={({item}) => (
+          <TouchableOpacity onPress={() =>
+            this.props.navigation.navigate('CategoriesList', { 
+              categorie_id: item.id, 
+              categorie_name: item.name
+            })
+          }>
+          <Card>
+            <Card.Content>
+              <Title>{item.name}</Title>
+            </Card.Content>
+          </Card>
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item, index) => index}
         />
-      </View>
+      </ScrollView>
     );
-};
-
-export default GalleryScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center'
-  },
-});
+  }
+}
+    

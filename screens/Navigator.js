@@ -10,12 +10,36 @@ import AccountScreen from './Account';
 import BlogScreen from './Blog';
 import GalleryScreen from './Gallery';
 import SinglePost from './SinglePost';
+import CategoriesList from './CategoriesList';
+import ProfileOne from './Profile/ProfileOne';
+import ProfileTwo from './Profile/ProfileTwo';
+import ProfileThree from './Profile/ProfileThree';
+import ProfileFour from './Profile/ProfileFour';
+import ProfileFive from './Profile/ProfileFive';
+import ProfileSix from './Profile/ProfileSix';
+import ProfileSeven from './Profile/ProfileSeven';
+import ProfileEight from './Profile/ProfileEight';
+import ChatScreen from './component/Chat';
+import LoginScreen from './component/LoginScreen';
+import RealTimeChat from './component/RealTimeChat';
 
 const HomeStack = createStackNavigator();
 const AccountStack = createStackNavigator();
 const BlogStack = createStackNavigator();
 const GalleryStack = createStackNavigator();
 const SinglePostStack = createStackNavigator();
+const CategoriesListStack = createStackNavigator();
+const ProfileOneStack = createStackNavigator();
+const ProfileTwoStack = createStackNavigator();
+const ProfileThreeStack = createStackNavigator();
+const ProfileFourStack = createStackNavigator();
+const ProfileFiveStack = createStackNavigator();
+const ProfileSixStack = createStackNavigator();
+const ProfileSevenStack = createStackNavigator();
+const ProfileEightStack = createStackNavigator();
+const ChatScreenStack = createStackNavigator();
+const LoginScreenStack = createStackNavigator();
+const RealTimeChatStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -117,6 +141,16 @@ const GalleryStackScreen = () => (
           component={GalleryScreen} 
           options={{ title:'Gallery' }} 
       />
+      <CategoriesListStack.Screen 
+          name="CategoriesList"
+          component={CategoriesList}
+          options={{ title:'CategoriesList' }}
+      />
+      <SinglePostStack.Screen 
+          name="SinglePost"
+          component={SinglePost}
+          options={{ title:'SinglePost' }}
+      />
   </GalleryStack.Navigator>
 );
 
@@ -124,7 +158,6 @@ const BlogStackScreen = () => (
   <BlogStack.Navigator screenOptions={{
       headerStyle: {
         backgroundColor: '#fff',
-        
       },
       headerTintColor: '#000000',
       headerTitleStyle: {
@@ -150,7 +183,7 @@ const BlogStackScreen = () => (
 const AccountStackScreen = () => (
     <AccountStack.Navigator screenOptions={{
         headerStyle: {
-          backgroundColor: '#ffe4e1',
+          backgroundColor: '#fff',
         },
         headerTintColor: '#000000',
         headerTitleStyle: {
@@ -164,6 +197,61 @@ const AccountStackScreen = () => (
             name="Account"
             component={AccountScreen}
             options={{ title:'Account' }}
+        />
+        <ProfileOneStack.Screen 
+          name="ProfileOne"
+          component={ProfileOne}
+          options={{ title:'Profile' }}
+        />
+        <ProfileTwoStack.Screen geli
+          name="ProfileTwo"
+          component={ProfileTwo}
+          options={{ title:'Profile' }}
+        />
+        <ProfileThreeStack.Screen 
+          name="ProfileThree"
+          component={ProfileThree}
+          options={{ title:'Profile' }}
+        />
+        <ProfileFourStack.Screen 
+          name="ProfileFour"
+          component={ProfileFour}
+          options={{ title:'Profile' }}
+        />
+        <ProfileFiveStack.Screen 
+          name="ProfileFive"
+          component={ProfileFive}
+          options={{ title:'Profile' }}
+        />
+        <ProfileSixStack.Screen 
+          name="ProfileSix"
+          component={ProfileSix}
+          options={{ title:'Profile' }}
+        />
+        <ProfileSevenStack.Screen 
+          name="ProfileSeven"
+          component={ProfileSeven}
+          options={{ title:'Profile' }}
+        />
+        <ProfileEightStack.Screen 
+          name="ProfileEight"
+          component={ProfileEight}
+          options={{ title:'Profile' }}
+        />
+        <ChatScreenStack.Screen
+          name="ChatScreen"
+          component={ChatScreen}
+          options={{ title:'Contact' }}
+        />
+        <LoginScreenStack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ title:'LoginScreen' }}
+        />
+        <RealTimeChatStack.Screen
+          name="RealTimeChat"
+          component={RealTimeChat}
+          options={{ title:'RealTimeChat' }}
         />
     </AccountStack.Navigator>
 );

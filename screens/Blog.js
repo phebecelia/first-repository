@@ -3,6 +3,7 @@ import { View, FlatList, TouchableOpacity } from 'react-native';
 import {  Card, Title, Paragraph, Headline } from 'react-native-paper';
 import HTMLRender from 'react-native-render-html';
 import moment from 'moment';
+import base64 from 'react-native-base64'
 
 class BlogScreen extends Component {
     constructor(props) {
@@ -17,8 +18,19 @@ class BlogScreen extends Component {
   }
 
   async fetchLastestPost() {
+    let headers = new Headers()
+    let wpApiUsername = "api"
+    let wpApiPassword = "epaP YADG VK1I oa2w WtKk qR8i"
+    let auth = `${wpApiUsername}:${wpApiPassword}`
+
+    headers.append("Authorization", "Basic " + base64.encode(auth))
+
+    // console.log(headers)
+
     const response = await fetch(
-      'https://phebecelia.id/wp-json/wp/v2/posts/'
+      'https://phebecelia.id/wp-json/wp/v2/posts/', {
+        headers: headers
+      }
     );
       const post = await response.json();
       this.setState({ lastestpost: post});
@@ -50,7 +62,7 @@ class BlogScreen extends Component {
                   <Paragraph>Published on {moment(item.date).fromNow()}</Paragraph>
                 </Card.Content>
                 <Card.Cover
-                  source={{ uri: item.jetpack_featured_media_url }}
+                  source={item.jetpack_featured_media_url ? {uri: item.jetpack_featured_media_url} : null}
                 />
                 <Card.Content>
                   <HTMLRender html={item.excerpt.rendered} />

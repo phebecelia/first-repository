@@ -3,6 +3,7 @@ import {  Card, Title, List } from 'react-native-paper';
 import { View, ScrollView, ActivityIndicator, Dimensions } from 'react-native';
 import moment from 'moment';
 import HTML from 'react-native-render-html';
+import base64 from 'react-native-base64'
 
 class SinglePost extends Component {
     constructor(props) {
@@ -20,11 +21,18 @@ class SinglePost extends Component {
     async fetchPost() {
         // let post_id = this.props.navigation.getParam('post_id');
         let postId = this.props.route.params; // contoh output json: "post_id": 206
+        let headers = new Headers()
+        let wpApiUsername = "api"
+        let wpApiPassword = "epaP YADG VK1I oa2w WtKk qR8i"
+        let auth = `${wpApiUsername}:${wpApiPassword}`
+        headers.append("Authorization", "Basic " + base64.encode(auth))
 
         // notes: karena output nya json, maka harus diakses dengan metode object
         // contoh: postId.post_id
         const response = await fetch(
-            `https://phebecelia.id/wp-json/wp/v2/posts?_embed&include=${postId.post_id}`
+            `https://phebecelia.id/wp-json/wp/v2/posts?_embed&include=${postId.post_id}`, {
+                headers: headers
+            }
         );
         const post = await response.json();
 
@@ -67,7 +75,7 @@ class SinglePost extends Component {
                         ).fromNow()}`}
                     />
                 </Card.Content>
-                <Card.Cover source={{ uri: post[0].jetpack_featured_media_url}} />
+                <Card.Cover source={post[0].jetpack_featuren_media_url ? {uri: post[0].jetpack_featuren_media_url}: null} />
                 <Card.Content>
                     <HTML html={post[0].content.rendered}
                         imagesInitialDimensions={{
